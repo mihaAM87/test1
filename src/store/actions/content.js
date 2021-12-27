@@ -76,9 +76,11 @@ function initStepArrTask(contentArr, stepApp) {
 
 function getNextStep(arrContent, arrStep, count) {
 
-  if (!arrContent || !(arrContent.length > 0)) {
-    return;
-  }
+  // if (!arrContent || !(arrContent.length > 0)) {
+  //   return;
+  // }
+
+  console.log('count', count)
 
   if (count >= 0) {
     for (let y = 0; y < arrContent.length; ++y) {
@@ -111,17 +113,18 @@ function getNextStep(arrContent, arrStep, count) {
         return;
       }
     }
-  
   }
 
-  
+  console.log("start", "START")
   let step = getRandomItem(arrContent);
-
+  console.log("start", step)
   let nextItem = arrContent[step.stepY][step.stepX];
 
   nextItem.isStart = true;
   nextItem.isTemp = true;  
   
+  console.log("isStart",  arrContent[step.stepY][step.stepX].isStart)
+
   if (count == arrStep.length - 1) {
     nextItem.isTarget = true;
   }
@@ -150,7 +153,7 @@ function getRandomItem(arr, item) {
 
   if (arr.length > 1) {
     if (!item || typeof item.x !== 'number' || typeof item.y !== 'number') {
-      stepX = getRandomInRange(0, arr.length - 1);
+      stepY = getRandomInRange(0, arr.length - 1);
     } else {
       if (stepX == 0) {
         
