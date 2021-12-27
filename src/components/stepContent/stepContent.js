@@ -11,14 +11,22 @@ class stepContent extends Component {
 
     render() {
       let {stepArr} = this.props;
+      console.log('stepArr', stepArr)
+      const classesMainContentAr = [];
+      classesMainContentAr.push('container');
+      classesMainContentAr.push(classes.mainItem);
+      classesMainContentAr.push(classes.rowItem)
+      const classesMainContentItem = [];
+      
+      classesMainContentItem.push('col-2');
 
       stepArr = stepArr.map(item => { 
         return (
-          <StepContentItem item={item}></StepContentItem>
+          <StepContentItem key={'item_' + Math.random()} prop_item={item} className={classesMainContentItem.join(" ")}></StepContentItem>
         )});
         return (
-          <div>
-            stepArr
+          <div className={classesMainContentAr.join(" ")}>
+            {stepArr}
           </div>
         )        
     }

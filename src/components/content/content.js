@@ -6,25 +6,37 @@ import classes from './content.module.scss'
 
 class content extends Component {
 
-    componentDidMount() {
-      
-    }
-
+ 
     render() {
       let {contentArr} = this.props;
 
-      contentArr = contentArr.map(itemArr => { 
+      const classesMainContentAr = [];
+      classesMainContentAr.push('container');
+      classesMainContentAr.push(classes.mainItem);
+      const classesMainContentItem = [];
+      classesMainContentItem.push(classes.rowItem)
+      classesMainContentItem.push('center-block')
+      classesMainContentItem.push('col-md-4')
+ 
+      contentArr = contentArr.map(itemArr => 
+        {
+          return (
+            <div className={classesMainContentItem.join(" ")} key={Math.random()}>
+              {
+                itemArr.map(item => {
+                  return (
+                    <ContentItem key={'item_' + Math.random()} item={item}></ContentItem>
+                  )})} 
+            </div>)
+        });  
+      
+
+      console.log('contentArr', contentArr)
+
         return (
-        <div>
-          {itemArr.map(item => {
-          return (<ContentItem item={item}></ContentItem>)})}
-        </div>)
-      });
-        return (
-          <div>
-            contentArr
-          </div>
-        )
+          <div className={classesMainContentAr.join(" ")}>
+            {contentArr}
+          </div>)
     }
 }
 

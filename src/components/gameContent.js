@@ -2,20 +2,33 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import StepContent from './stepContent/stepContent'
-import classes from './gameContent.scss'
-import Content from './stepContent/content'
+import classes from './gameContent.module.scss'
+import Content from './content/content'
+import {initGame} from '../store/actions/content';
 
 class gameContent extends Component {
+
+  state = {
+    contentArr: [],
+    stepArr: []
+  }
 
     componentDidMount() {
       this.props.initGame(this.state.contentArr, this.state.stepArr);
     }
 
     render() {
+      let {contentArr, stepArr} = this.props;
+
+      const classesMainContentAr = [];
+      
+      const classesMainContentItem = [];
+      classesMainContentItem.push(classes.item)
         return (
           <div>
             <Content contentArr={contentArr} />
             <StepContent stepArr={stepArr} />
+            
           </div>
           
         )

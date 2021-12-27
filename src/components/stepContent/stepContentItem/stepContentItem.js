@@ -9,16 +9,16 @@ class stepContentItem extends Component {
 
 
     render() {
-        let {item} = this.props;
+        let {prop_item} = this.props;
 
         const classesMainContentAr = [];
-        classesMainContentAr.push("divItem");
-        const classesMainContentItem = []
-
+        classesMainContentAr.push(classes.divMain);
+        const classesMainContentItem = [];
+        console.log('img src', prop_item?.src)
         return (
-          (<div className={classesMainContentAr.join(" ")}>
+          (<div className={classesMainContentAr.join(" ")} className={classesMainContentAr.join(" ")}>
           <img className={classesMainContentItem.join(" ")} 
-          src={item.iStart ? "/img/constr4.gif" : (item.isTarget ? (item.type ? (item.type === WIN ? "/img/yes.jgp" : "/img/no.png") : "") : "/img/fail.png")} />
+          src={prop_item?.src} />
         </div>)
         )
     }

@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
-        <Route path="/source/source.json" component={GameContent} />
+        <Route component={GameContent} />
       </Switch>)
     return (
     <div className="App">

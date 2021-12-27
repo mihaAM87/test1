@@ -1,27 +1,38 @@
-import {WIN, FAIL} from '../actions/actionTypes';
+import {WIN, FAIL, CONTENT_X_LENGTH, CONTENT_Y_LENGTH, STEP_LENGTH, STEP_DIRECTION, INTERVAL_TIME, LOAD_ALL_CONTENTS, SUCCESS} from './actionTypes';
 
+export function fetchContentSuccess(contentArr, stepArr) {
+  return {
+    type: LOAD_ALL_CONTENTS + SUCCESS,
+    contentArr,
+    stepArr
+  }
+}
 
-
-export function initGame(contentXLength, contentYLength, stepLength) {
+export function initGame(contentArr, stepArr) {
   return async dispatch => {
     try {
 
-      let contentArr = initContentArr(contentXLength, contentYLength);
-      let stepApp = initStepArr(stepLength);
-      initStepArrTask(contentArr, stepApp);
+      contentArr = initContentArr(CONTENT_X_LENGTH, CONTENT_Y_LENGTH);
+      stepArr = initStepArr(STEP_LENGTH);
+
+      initStepArrTask(contentArr, stepArr);
+
+      dispatch(fetchContentSuccess(contentArr, stepArr));
 
     } catch (e) {
-      dispatch(fetchContentError(e));
+      //dispatch(fetchContentError(e));
     }
   }
 }
 
 function initContentArr(contentXLength, contentYLength) {
   
-  let arr = Array(contentXLength)
+  let arr = Array(contentYLength)
 
-  for (let item_y in arr) {
-    item_y = Array(contentYLength)
+  for (let i = 0; i < arr.length; ++i) {
+    arr[i] = Array(contentXLength)
+
+    arr[i] = initArr(arr[i]);
   }
 
   return arr;
@@ -31,61 +42,121 @@ function initStepArr(stepLength) {
 
   let arr = Array(stepLength);
 
+  arr = initArr(arr);
+
+  return arr;
+}
+
+function initArr(arr) {
+  for (let i = 0; i < arr.length; ++i) {
+    arr[i] = {}
+  }
+
   return arr;
 }
 
 function initStepArrTask(contentArr, stepApp) {
-  for (let count = 0; count < stepApp.length; ++count) {
-    getNextStep(contentArr, stepApp, count)
-  }
-}
+  let count = 0;
 
-function getRandomItem(arr, item) {
-  let stepX = 0; 
-  let stepY = 0; 
+  for (let i = 0; i < stepApp.length; ++i) {
 
-  if (y_length > 1) {
-    stepX = getRandomInRange(-1, 0, 1);
-    if ((item.x == 0 && stepX < 0) || (item.x == (arr[0].length - 1) && stepX > 0)) {
-      stepX = -stepX;
-    } 
-  } 
-
-  if (x_length > 1) {
-    if (stepX == 0) {
-      stepY = getRandomInRange(0, 1) == 0 ? -1 : 1
-      if ((item.y == 0 && stepY < 0) || (item.y == (arr.length - 1) && stepY > 0)) {
-        stepY = -stepY;
-      } 
-    }
+    getNextStep(contentArr, stepApp, i);
+    
   }
   
-  return {stepX, stepY}
+  
+  //let interval = window.interval(function (count) {
+    //if (!(++count < stepApp.length)) {
+      //window.clearInterval(interval);
+    //}
+  //}, INTERVAL_TIME)
 }
-
 
 function getNextStep(arrContent, arrStep, count) {
   for (let y = 0; y < arrContent.length; ++y) {
-    let y_arr = arr[y];
-    let x = y_arr.indexOf(item => item.temp)
+    let y_arr = arrContent[y];
+    
+    let x = y_arr.indexOf(y_arr.find(item => item.isTemp));
     if (x >= 0) {
-
+      console.log('count', count)
+      console.log('x', x)
       y_arr[x].isTemp = false;     
       
       let step = getRandomItem(arrContent, {x, y});
 
       arrStep[count].src = getStepDirectionSrc(step)
 
+      if (typeof x !== 'number' || typeof y !== 'number') {
+        x = 0;
+        y = 0;
+      }
+
       let nextItem = arrContent[y += step.stepY][x += step.stepX];
 
-      nextItem.isTemp = true;
+      nextItem.isTemp = true; 
 
-      return getWin(nextItem, {count, countEnd: arrStep.length - 1})    
+      if (count == arrStep.length - 1) {
+        nextItem.isTarget = true;
+      }
+      
+      return;
     }
   }
+
+  let step = getRandomItem(arrContent);
+
+  let nextItem = arrContent[step.stepY][step.stepX];
+
+  nextItem.isStart = true;
+  nextItem.isTemp = true;  
   
-  return false;
+  if (count == arrStep.length - 1) {
+    nextItem.isTarget = true;
+  }
+  
+  return;
 }
+
+function getRandomItem(arr, item) {
+  let stepX = 0; 
+  let stepY = 0;
+  
+  if (arr[0].length > 1) {
+
+    if (!item || typeof item.x !== 'number' || typeof item.y !== 'number') {
+      stepX = getRandomInRange(0, arr[0].length - 1);
+    } else {
+      stepX = getRandomInRange(-1, 1);
+    
+      if ((item.x == 0 && stepX < 0) || (item.x == (arr[0].length - 1) && stepX > 0)) {
+        stepX = -stepX;
+      } 
+    }
+  } else {
+    stepX = 0
+  }
+
+  if (arr.length > 1) {
+    if (!item || typeof item.x !== 'number' || typeof item.y !== 'number') {
+      stepX = getRandomInRange(0, arr.length - 1);
+    } else {
+      if (stepX == 0) {
+        
+        stepY = getRandomInRange(0, 1) == 0 ? -1 : 1
+        if ((item.y == 0 && stepY < 0) || (item.y == (arr.length - 1) && stepY > 0)) {
+          stepY = -stepY;
+        } 
+      }    
+    }
+  } else {
+    stepY = 0;
+  }
+  
+  return {stepX, stepY}
+}
+
+
+
 
 function getStepDirectionSrc(step) {
   if (step && step.x && step.y) {
@@ -108,21 +179,23 @@ function getStepDirectionSrc(step) {
   }
 }
 
-function getWin(nextItem, content) {
+function getWin(checkedItem) {
 
-  if (content.count == content.countEnd) {
-
-    if (nextItem.isTarget) {
-      nextItem.type = WIN;
-    } else {
-      nextItem.type = FAIL;
-    }
-    
+  if (checkedItem.isTarget) {
+    checkedItem.type = WIN;
+  } else {
+    checkedItem.type = FAIL;
   }
-
-  return nextItem.type === WIN;
 }
 
 function getRandomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export function check(item) {
+
+  if (item) {
+    getWin(item);
+  }
+
 }
