@@ -1,4 +1,4 @@
-import {WIN, FAIL, CONTENT_X_LENGTH, CONTENT_Y_LENGTH, STEP_LENGTH, STEP_DIRECTION, INTERVAL_TIME, LOAD_ALL_CONTENTS, SUCCESS} from './actionTypes';
+import {WIN, FAIL, CONTENT_X_LENGTH, CONTENT_Y_LENGTH, STEP_LENGTH, STEP_DIRECTION_LEFT, STEP_DIRECTION_RIGHT, STEP_DIRECTION_UP, STEP_DIRECTION_DOWN, INTERVAL_TIME, LOAD_ALL_CONTENTS, SUCCESS} from './actionTypes';
 
 export function fetchContentSuccess(contentArr, stepArr) {
   return {
@@ -58,6 +58,8 @@ function initArr(arr) {
 function initStepArrTask(contentArr, stepApp) {
   let count = 0;
 
+  getNextStep(contentArr, stepApp, -1);
+
   for (let i = 0; i < stepApp.length; ++i) {
 
     getNextStep(contentArr, stepApp, i);
@@ -73,36 +75,46 @@ function initStepArrTask(contentArr, stepApp) {
 }
 
 function getNextStep(arrContent, arrStep, count) {
-  for (let y = 0; y < arrContent.length; ++y) {
-    let y_arr = arrContent[y];
-    
-    let x = y_arr.indexOf(y_arr.find(item => item.isTemp));
-    if (x >= 0) {
-      console.log('count', count)
-      console.log('x', x)
-      y_arr[x].isTemp = false;     
-      
-      let step = getRandomItem(arrContent, {x, y});
 
-      arrStep[count].src = getStepDirectionSrc(step)
-
-      if (typeof x !== 'number' || typeof y !== 'number') {
-        x = 0;
-        y = 0;
-      }
-
-      let nextItem = arrContent[y += step.stepY][x += step.stepX];
-
-      nextItem.isTemp = true; 
-
-      if (count == arrStep.length - 1) {
-        nextItem.isTarget = true;
-      }
-      
-      return;
-    }
+  if (!arrContent || !(arrContent.length > 0)) {
+    return;
   }
 
+  if (count >= 0) {
+    for (let y = 0; y < arrContent.length; ++y) {
+      let y_arr = arrContent[y];
+      
+      let x = y_arr.indexOf(y_arr.find(item => item.isTemp));
+      if (x >= 0) {
+        console.log('count', count)
+        console.log('x', x)
+        y_arr[x].isTemp = false;     
+        
+        let step = getRandomItem(arrContent, {x, y});
+  
+        arrStep[count].src = getStepDirectionSrc(step)
+        console.log('arrStep[count].src', arrStep[count].src)
+  
+        if (typeof x !== 'number' || typeof y !== 'number') {
+          x = 0;
+          y = 0;
+        }
+  
+        let nextItem = arrContent[y += step.stepY][x += step.stepX];
+  
+        nextItem.isTemp = true; 
+  
+        if (count == arrStep.length - 1) {
+          nextItem.isTarget = true;
+        }
+        
+        return;
+      }
+    }
+  
+  }
+
+  
   let step = getRandomItem(arrContent);
 
   let nextItem = arrContent[step.stepY][step.stepX];
@@ -159,20 +171,20 @@ function getRandomItem(arr, item) {
 
 
 function getStepDirectionSrc(step) {
-  if (step && step.x && step.y) {
-    if (step.x != 0) {
-      switch (step.x) {
+  if (step && typeof step.stepX === 'number' && typeof step.stepY === 'number') {
+    if (step.stepX != 0) {
+      switch (step.stepX) {
         case -1:
-          return STEP_DIRECTION.LEFT;
+          return STEP_DIRECTION_LEFT;
         case 1:
-          return STEP_DIRECTION.RIGHT;
+          return STEP_DIRECTION_RIGHT;
       }
-    } else if (step.y != 0) {
-      switch (step.y) {
+    } else if (step.stepY != 0) {
+      switch (step.stepY) {
         case -1:
-          return STEP_DIRECTION.DOWN;
+          return STEP_DIRECTION_DOWN;
         case 1:
-          return STEP_DIRECTION.UP;
+          return STEP_DIRECTION_UP;
       }
     }
 

@@ -6,7 +6,7 @@ const initialState = {
   stepArr: []
 }
 
-export default function contentReducer(action) {
+export default function contentReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_ALL_CONTENTS + SUCCESS:
       return {
