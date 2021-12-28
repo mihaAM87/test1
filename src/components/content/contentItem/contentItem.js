@@ -4,13 +4,13 @@ import classes from './contentItem.module.scss'
 import { connect } from 'react-redux'
 import Radium from 'radium'
 import {WIN} from '../../../store/actions/actionTypes';
-import {check} from '../../../store/actions/content';
+import {check, getMainItemSrc} from '../../../store/actions/content';
 
 
 class contentItem extends Component {
 
      render() {
-        let {item} = this.props;
+        let {item, isClick} = this.props;
 
         const classesMainContentAr = [];
         classesMainContentAr.push(classes.divItem);
@@ -19,10 +19,9 @@ class contentItem extends Component {
         console.log("item", item)
         console.log("item?.isStart", item?.isStart)
         return (
-          <div className={classesMainContentAr.join(" ")} onClick={this.props.check.bind(item)}>
+          <div className={classesMainContentAr.join(" ")} onClick={this.props.check.bind(item), isClick = true}>
             <img className={classesMainContentItem.join(" ")} 
-              src={item?.isStart ? "../../../img/constr4.gif" : 
-              (item?.isTarget ? (item?.type ? (item?.type === WIN ? "../../../img/yes.jgp" : (checkedItem.type === FAIL ? "../../../img/no.png" : "../../../img/fail.png") : )}
+              src={this.props.getMainItemSrc.bind(item, isClick)}
               />
           </div>)
     }
@@ -34,7 +33,8 @@ function mapStateToProps(state) {
   
   function mapDispatchToProps(dispatch) {
     return {
-      check: (item) => dispatch(check(item))
+      check: (item) => dispatch(check(item)),
+      getMainItemSrc: (item, isClick) => dispatch(getMainItemSrc(item, isClick))
     }
   }
 

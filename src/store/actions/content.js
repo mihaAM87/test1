@@ -203,6 +203,36 @@ function getWin(checkedItem) {
   }
 }
 
+export function getMainItemSrc(item, isClick) {
+  let src = "";
+
+  if (item?.isStart) {
+
+    src = "../../../img/constr4.gif"
+
+  } else {
+
+    if (isClick) {
+
+      if (item?.isTarget) {
+
+        if (item?.type === WIN) {
+          src = "../../../img/yes.jgp";
+        } else {
+          src = "../../../img/fail.png"
+        }
+
+      } else if (item?.isClick) {
+
+        src = "../../../img/no.png"
+
+      } 
+    } 
+  }
+
+  return src;
+}
+
 function getRandomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -210,6 +240,7 @@ function getRandomInRange(min, max) {
 export function check(item) {
 
   if (item) {
+    item.isClick = true;
     getWin(item);
   }
 
