@@ -15,11 +15,16 @@ class stepContentItem extends Component {
         classesMainContentAr.push(classes.divMain);
         const classesMainContentItem = [];
         classesMainContentItem.push(classes.stepImg)
-        console.log('img src', prop_item?.src)
+
+        let imgSrc = prop_item?.src;
+
         return (
           (<div className={classesMainContentAr.join(" ")}>
-            <img className={classesMainContentItem.join(" ")} 
-            src={prop_item?.src} />
+            {imgSrc ?
+              <img className={classesMainContentItem.join(" ")} 
+              src={imgSrc} /> 
+              : ""
+            }
           </div>)
         )
     }

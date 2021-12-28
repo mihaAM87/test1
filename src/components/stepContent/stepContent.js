@@ -11,7 +11,7 @@ class stepContent extends Component {
 
     render() {
       let {stepArr} = this.props;
-      console.log('stepArr', stepArr)
+
       const classesMainContentAr = [];
       classesMainContentAr.push('container');
       classesMainContentAr.push(classes.mainItem);

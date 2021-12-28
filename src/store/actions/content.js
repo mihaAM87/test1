@@ -1,4 +1,6 @@
-import {WIN, FAIL, CONTENT_X_LENGTH, CONTENT_Y_LENGTH, STEP_LENGTH, STEP_DIRECTION_LEFT, STEP_DIRECTION_RIGHT, STEP_DIRECTION_UP, STEP_DIRECTION_DOWN, INTERVAL_TIME, LOAD_ALL_CONTENTS, SUCCESS} from './actionTypes';
+import {WIN, FAIL, CONTENT_X_LENGTH, CONTENT_Y_LENGTH, STEP_LENGTH, 
+  STEP_DIRECTION_LEFT, STEP_DIRECTION_RIGHT, STEP_DIRECTION_UP, STEP_DIRECTION_DOWN, 
+  INTERVAL_TIME, LOAD_ALL_CONTENTS, SUCCESS, CHECK} from './actionTypes';
 
 export function fetchContentSuccess(contentArr, stepArr) {
   return {
@@ -8,14 +10,26 @@ export function fetchContentSuccess(contentArr, stepArr) {
   }
 }
 
+export function fetchContentCheck(contentArr, item) {
+  return {
+    type: LOAD_ALL_CONTENTS + CHECK,
+    contentArr,
+    item
+  }
+}
+
 export function initGame(contentArr, stepArr) {
   return async dispatch => {
     try {
 
-      contentArr = initContentArr(CONTENT_X_LENGTH, CONTENT_Y_LENGTH);
-      stepArr = initStepArr(STEP_LENGTH);
+      if ((!contentArr || contentArr.length == 0) || (!stepArr || stepArr.length == 0)) {
+        contentArr = initContentArr(CONTENT_X_LENGTH, CONTENT_Y_LENGTH);
+        stepArr = initStepArr(STEP_LENGTH);
 
-      initStepArrTask(contentArr, stepArr);
+        initStepArrTask(contentArr, stepArr);
+      }
+      
+      initContentArrSrc(contentArr);
 
       dispatch(fetchContentSuccess(contentArr, stepArr));
 
@@ -23,6 +37,75 @@ export function initGame(contentArr, stepArr) {
       //dispatch(fetchContentError(e));
     }
   }
+}
+
+export async function reStart(contentArr, stepArr) {
+  contentArr = [];
+  stepArr = [];
+
+  await initGame(contentArr, stepArr)
+}
+
+export function check(contentArr, item) {
+  return async dispatch => {
+    try {
+
+      if (contentArr && contentArr.length > 0 && item) {
+        
+        contentArr.isClick = true;
+        item.isClick = contentArr.isClick;
+        getWin(item);
+
+        initContentArrSrc(contentArr);
+        console.log('item', item)
+        dispatch(fetchContentCheck(contentArr, item));
+      }
+    } catch (e) {
+      //dispatch(fetchContentError(e));
+    }
+  }
+}
+
+function getWin(checkedItem) {
+
+  if (checkedItem.isTarget) {
+    checkedItem.type = WIN;
+  } else {
+    checkedItem.type = FAIL;
+  }
+}
+
+function getMainItemSrc(item, isClick) {
+  item.src = "";
+     
+  if (item?.isStart) {
+
+    item.src = "../../../img/constr4.gif"
+
+  } 
+  
+  if (isClick) {
+
+    if (item?.isTarget) {
+
+      if (item?.type === WIN) {
+        item.src = "../../../img/yes.jgp";
+      } else {
+        item.src = "../../../img/fail.png"
+      }
+
+    } else if (item?.isClick) {
+
+      item.src = "../../../img/no.png"
+
+    } 
+    
+  } else {
+    if (item?.isTarget) {
+      item.src = "../../../img/test.jpg"
+    }
+  }
+
 }
 
 function initContentArr(contentXLength, contentYLength) {
@@ -35,7 +118,17 @@ function initContentArr(contentXLength, contentYLength) {
     arr[i] = initArr(arr[i]);
   }
 
+  arr.isClick = false;
+
   return arr;
+}
+
+function initContentArrSrc(contentArr) {
+  contentArr.forEach(itemArr => {
+    itemArr.forEach(item => {
+      getMainItemSrc(item, contentArr.isClick)
+    })
+  }); 
 }
 
 function initStepArr(stepLength) {
@@ -80,22 +173,18 @@ function getNextStep(arrContent, arrStep, count) {
   //   return;
   // }
 
-  console.log('count', count)
-
   if (count >= 0) {
     for (let y = 0; y < arrContent.length; ++y) {
       let y_arr = arrContent[y];
       
       let x = y_arr.indexOf(y_arr.find(item => item.isTemp));
       if (x >= 0) {
-        console.log('count', count)
-        console.log('x', x)
+
         y_arr[x].isTemp = false;     
         
         let step = getRandomItem(arrContent, {x, y});
   
         arrStep[count].src = getStepDirectionSrc(step)
-        console.log('arrStep[count].src', arrStep[count].src)
   
         if (typeof x !== 'number' || typeof y !== 'number') {
           x = 0;
@@ -115,15 +204,11 @@ function getNextStep(arrContent, arrStep, count) {
     }
   }
 
-  console.log("start", "START")
   let step = getRandomItem(arrContent);
-  console.log("start", step)
   let nextItem = arrContent[step.stepY][step.stepX];
 
   nextItem.isStart = true;
   nextItem.isTemp = true;  
-  
-  console.log("isStart",  arrContent[step.stepY][step.stepX].isStart)
 
   if (count == arrStep.length - 1) {
     nextItem.isTarget = true;
@@ -135,37 +220,31 @@ function getNextStep(arrContent, arrStep, count) {
 function getRandomItem(arr, item) {
   let stepX = 0; 
   let stepY = 0;
-  
+
   if (arr[0].length > 1) {
 
     if (!item || typeof item.x !== 'number' || typeof item.y !== 'number') {
       stepX = getRandomInRange(0, arr[0].length - 1);
     } else {
       stepX = getRandomInRange(-1, 1);
-    
       if ((item.x == 0 && stepX < 0) || (item.x == (arr[0].length - 1) && stepX > 0)) {
         stepX = -stepX;
       } 
     }
-  } else {
-    stepX = 0
-  }
+  } 
 
   if (arr.length > 1) {
     if (!item || typeof item.x !== 'number' || typeof item.y !== 'number') {
       stepY = getRandomInRange(0, arr.length - 1);
     } else {
       if (stepX == 0) {
-        
         stepY = getRandomInRange(0, 1) == 0 ? -1 : 1
         if ((item.y == 0 && stepY < 0) || (item.y == (arr.length - 1) && stepY > 0)) {
           stepY = -stepY;
         } 
-      }    
+      } 
     }
-  } else {
-    stepY = 0;
-  }
+  } 
   
   return {stepX, stepY}
 }
@@ -184,64 +263,19 @@ function getStepDirectionSrc(step) {
       }
     } else if (step.stepY != 0) {
       switch (step.stepY) {
-        case -1:
-          return STEP_DIRECTION_DOWN;
-        case 1:
+        case -1: 
           return STEP_DIRECTION_UP;
+        case 1:
+          return STEP_DIRECTION_DOWN;
       }
     }
 
   }
 }
 
-function getWin(checkedItem) {
-
-  if (checkedItem.isTarget) {
-    checkedItem.type = WIN;
-  } else {
-    checkedItem.type = FAIL;
-  }
-}
-
-export function getMainItemSrc(item, isClick) {
-  let src = "";
-
-  if (item?.isStart) {
-
-    src = "../../../img/constr4.gif"
-
-  } else {
-
-    if (isClick) {
-
-      if (item?.isTarget) {
-
-        if (item?.type === WIN) {
-          src = "../../../img/yes.jgp";
-        } else {
-          src = "../../../img/fail.png"
-        }
-
-      } else if (item?.isClick) {
-
-        src = "../../../img/no.png"
-
-      } 
-    } 
-  }
-
-  return src;
-}
 
 function getRandomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function check(item) {
 
-  if (item) {
-    item.isClick = true;
-    getWin(item);
-  }
-
-}

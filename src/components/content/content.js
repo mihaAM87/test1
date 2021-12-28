@@ -25,7 +25,7 @@ class content extends Component {
               {
                 contentItemArr.map(contentItem => {
                   return (
-                    <ContentItem key={'item_' + Math.random()} item={contentItem} isClick={contentArr.isClick}></ContentItem>
+                    <ContentItem key={'item_' + Math.random()} item={contentItem} arr={contentArr}></ContentItem>
                   )})} 
             </div>)
         });  

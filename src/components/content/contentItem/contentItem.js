@@ -10,33 +10,39 @@ import {check, getMainItemSrc} from '../../../store/actions/content';
 class contentItem extends Component {
 
      render() {
-        let {item, isClick} = this.props;
+        let {item, arr} = this.props;
 
         const classesMainContentAr = [];
         classesMainContentAr.push(classes.divItem);
         const classesMainContentItem = [];
         classesMainContentItem.push(classes.stepImg);
-        console.log("item", item)
-        console.log("item?.isStart", item?.isStart)
+
+        let imgSrc = item?.src;
+
         return (
-          <div className={classesMainContentAr.join(" ")} onClick={this.props.check.bind(item), isClick = true}>
-            <img className={classesMainContentItem.join(" ")} 
-              src={this.props.getMainItemSrc.bind(item, isClick)}
-              />
+          <div className={classesMainContentAr.join(" ")} onClick={this.props.checkClick.bind(this, arr, item)}>
+            {imgSrc ?
+              (<img className={classesMainContentItem.join(" ")} 
+              src={imgSrc}
+              />)
+              : ""
+            }
+            
           </div>)
     }
 }
 
 function mapStateToProps(state) {
-
+  return {
+    
   }
+}
   
   function mapDispatchToProps(dispatch) {
     return {
-      check: (item) => dispatch(check(item)),
-      getMainItemSrc: (item, isClick) => dispatch(getMainItemSrc(item, isClick))
+      checkClick: (arr, item) => dispatch(check(arr, item)),
     }
   }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Radium(contentItem))
+export default connect(mapStateToProps, mapDispatchToProps)(contentItem)

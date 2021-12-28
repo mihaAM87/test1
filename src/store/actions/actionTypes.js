@@ -16,4 +16,5 @@ export const STEP_LENGTH = 10
 export const INTERVAL_TIME = 1000;
 export const LOAD_ALL_CONTENTS = 'LOAD_ALL_CONTENTS_'
 export const SUCCESS = 'SUCCESS'
+export const CHECK = 'CHECK'
 

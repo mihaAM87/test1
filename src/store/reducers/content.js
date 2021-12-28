@@ -1,5 +1,5 @@
 import {OrderedMap, Record} from 'immutable'
-import {LOAD_ALL_CONTENTS, SUCCESS} from '../actions/actionTypes';
+import {LOAD_ALL_CONTENTS, SUCCESS, CHECK} from '../actions/actionTypes';
 
 const initialState = {
   contentArr: [],
@@ -11,6 +11,10 @@ export default function contentReducer(state = initialState, action) {
     case LOAD_ALL_CONTENTS + SUCCESS:
       return {
         ...state, contentArr: action.contentArr, stepArr: action.stepArr
+      }
+    case LOAD_ALL_CONTENTS + CHECK:
+      return {
+        ...state, contentArr: action.contentArr, item: action.item
       }
     default:
         return state
