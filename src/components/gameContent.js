@@ -26,20 +26,16 @@ class gameContent extends Component {
       classesMainContentItem.push(classes.item)
       const classesBtn = []
       classesBtn.push('btn btn-primary')
-      const classeControl = []
-      classeControl.push('form-control')
+      const classesControl = []
+      classesControl.push('form-control')
         return (
           <form className={classesMainContentAr.join(" ")} onClick={() => this.forceUpdate()}>
-            <div className={classeControl.join(" ")}>
-              <Content contentArr={contentArr} className={classesMainContentItem.join(" ")} onCheckClick={this.props.checkClick}/>
-            </div>
-            <div className={classeControl.join(" ")}>
-              <StepContent stepArr={stepArr} className={classesMainContentItem.join(" ")}/>
-            </div>
+            <Content contentArr={contentArr} className={classesMainContentItem.join(" ")} onCheckClick={this.props.checkClick}/>
+            <StepContent stepArr={stepArr} className={classesMainContentItem.join(" ")}/>
             
-            <div className={classeControl.join(" ")}>
+            <div className={classesControl.join(" ")}>
               <p>Игрок должен в уме «пройти» 10 ходов от текущей точки маркера по лабиринту и указать конечную точку маркера</p>
-              <button className={classesBtn.join(" ")} onClick={this.props.reStart.bind(contentArr, stepArr)} disabled={!contentArr.isClick}>Запуск</button>
+              <button className={classesBtn.join(" ")} onClick={this.props.reStart.bind(contentArr, stepArr)} disabled={!contentArr.isClick}>Перезапуск</button>
             </div>
           </form>
           

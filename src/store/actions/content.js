@@ -145,22 +145,23 @@ function initArr(arr) {
 }
 
 function initStepArrTask(contentArr, stepApp) {
-  let count = 0;
+  // let count = 0;
 
   getNextStep(contentArr, stepApp, -1);
 
-  for (let i = 0; i < stepApp.length; ++i) {
-
+  for (let i = 0; i < stepApp.length; ++i) { 
     getNextStep(contentArr, stepApp, i);
-    
   }
   
   
-  //let interval = window.interval(function (count) {
-    //if (!(++count < stepApp.length)) {
-      //window.clearInterval(interval);
-    //}
-  //}, INTERVAL_TIME)
+  // let interval = window.interval(function () {
+
+  //   getNextStep(contentArr, stepApp, count);
+
+  //   if (!(++count < stepApp.length)) {
+  //     window.clearInterval(interval);
+  //   }
+  // }, INTERVAL_TIME)
 }
 
 function getNextStep(arrContent, arrStep, count) {

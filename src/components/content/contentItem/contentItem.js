@@ -14,7 +14,7 @@ class contentItem extends Component {
         const classesMainContentAr = [];
         classesMainContentAr.push(classes.divItem);
         const classesMainContentItem = [];
-        classesMainContentItem.push(classes.stepImg);
+        classesMainContentItem.push(classes.contentImg);
 
         let imgSrc = item?.src;
         console.log('REFRESH', 'REFRESH')

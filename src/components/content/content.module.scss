@@ -1,12 +1,15 @@
 
 .mainItem {   
     margin: 10px;
+    width: auto;
 }
 
 .rowItem {
     display: flex;
 
-    box-orient: horizontal;                    
+    box-orient: horizontal;   
+    width: auto;
+                     
 }
 
 

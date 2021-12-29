@@ -13,7 +13,6 @@ class stepContent extends Component {
       let {stepArr} = this.props;
 
       const classesMainContentAr = [];
-      classesMainContentAr.push('container');
       classesMainContentAr.push(classes.mainItem);
       classesMainContentAr.push(classes.rowItem)
       const classesMainContentItem = [];

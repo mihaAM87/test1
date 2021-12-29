@@ -11,13 +11,10 @@ class content extends Component {
       let {contentArr} = this.props;
 
       const classesMainContentAr = [];
-      classesMainContentAr.push('container');
       classesMainContentAr.push(classes.mainItem);
       const classesMainContentItem = [];
       classesMainContentItem.push(classes.rowItem)
-      classesMainContentItem.push('center-block')
-      classesMainContentItem.push('col-md-4')
-
+          
       let contentArrDOM = contentArr.map(contentItemArr => 
         {
           return (
