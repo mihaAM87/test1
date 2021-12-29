@@ -17,8 +17,7 @@ class contentItem extends Component {
         classesMainContentItem.push(classes.contentImg);
 
         let imgSrc = item?.src;
-        console.log('REFRESH', 'REFRESH')
-        console.log("item?.src", item?.src)
+
         return (
             <div key={'item_div_' + Math.random()} className={classesMainContentAr.join(" ")} onClick={() => {
               if (!arr.isClick) {

@@ -40,9 +40,7 @@ function mapStateToProps(state) {
     }
   }
   
-  function mapDispatchToProps(dispatch) {
 
-  }
 
 
 export default content

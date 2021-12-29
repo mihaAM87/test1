@@ -1,6 +1,6 @@
 import {WIN, FAIL, CONTENT_X_LENGTH, CONTENT_Y_LENGTH, STEP_LENGTH, 
   STEP_DIRECTION_LEFT, STEP_DIRECTION_RIGHT, STEP_DIRECTION_UP, STEP_DIRECTION_DOWN, 
-  INTERVAL_TIME, LOAD_ALL_CONTENTS, SUCCESS, CHECK} from './actionTypes';
+  INTERVAL_TIME, LOAD_ALL_CONTENTS, SUCCESS, CHECK, START_IMG, YES_IMG, FAIL_IMG, NO_IMG} from './actionTypes';
 
 export function fetchContentSuccess(contentArr, stepArr) {
   return {
@@ -80,7 +80,7 @@ function getMainItemSrc(item, isClick) {
      
   if (item?.isStart) {
 
-    item.src = "../../../img/constr4.gif"
+    item.src = START_IMG
 
   } 
   
@@ -89,17 +89,16 @@ function getMainItemSrc(item, isClick) {
     if (item?.isTarget) {
 
       if (item?.type === WIN) {
-        item.src = "../../../img/yes.jpg";
+        item.src = YES_IMG;
       } else {
-        item.src = "../../../img/fail.png"
+        item.src = FAIL_IMG
       }
 
     } else if (item?.isClick) {
 
-      item.src = "../../../img/no.png"
+      item.src = NO_IMG
 
     } 
-    console.log("fail", item.src)
   }
 
 }
