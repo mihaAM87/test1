@@ -3,6 +3,7 @@ import {LOAD_ALL_CONTENTS, SUCCESS, CHECK} from '../actions/actionTypes';
 
 const initialState = {
   contentArr: [],
+  item: {},
   stepArr: []
 }
 

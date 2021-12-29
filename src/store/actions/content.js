@@ -43,7 +43,7 @@ export async function reStart(contentArr, stepArr) {
   contentArr = [];
   stepArr = [];
 
-  await initGame(contentArr, stepArr)
+  initGame(contentArr, stepArr)
 }
 
 export function check(contentArr, item) {
@@ -102,7 +102,7 @@ function getMainItemSrc(item, isClick) {
     
   } else {
     if (item?.isTarget) {
-      item.src = "../../../img/test.jpg"
+      item.src = "../../../img/fail.png"
     }
   }
 

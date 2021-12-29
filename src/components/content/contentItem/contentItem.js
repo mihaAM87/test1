@@ -4,7 +4,7 @@ import classes from './contentItem.module.scss'
 import { connect } from 'react-redux'
 import Radium from 'radium'
 import {WIN} from '../../../store/actions/actionTypes';
-import {check, getMainItemSrc} from '../../../store/actions/content';
+import {check} from '../../../store/actions/content';
 
 
 class contentItem extends Component {
@@ -34,7 +34,7 @@ class contentItem extends Component {
 
 function mapStateToProps(state) {
   return {
-    
+
   }
 }
   
