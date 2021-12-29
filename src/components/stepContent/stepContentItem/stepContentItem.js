@@ -19,7 +19,7 @@ class stepContentItem extends Component {
         let imgSrc = prop_item?.src;
 
         return (
-          (<div className={classesMainContentAr.join(" ")}>
+          (<div className={classesMainContentAr.join(" ")} key={'item_' + Math.random()}>
             {imgSrc ?
               <img className={classesMainContentItem.join(" ")} 
               src={imgSrc} /> 

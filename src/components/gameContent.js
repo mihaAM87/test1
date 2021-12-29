@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import StepContent from './stepContent/stepContent'
 import classes from './gameContent.module.scss'
 import Content from './content/content'
-import {initGame, reStart} from '../store/actions/content';
+import {initGame, reStart, check} from '../store/actions/content';
 
 class gameContent extends Component {
 
@@ -14,7 +14,7 @@ class gameContent extends Component {
   }
 
     componentDidMount() {
-      this.props.initGame(this.state.contentArr, this.state.stepArr);
+      this.props.initGame(this.props.contentArr, this.props.stepArr);
     }
 
     render() {
@@ -29,11 +29,17 @@ class gameContent extends Component {
       const classeControl = []
       classeControl.push('form-control')
         return (
-          <form className={classesMainContentAr.join(" ")}>
-            <Content contentArr={contentArr} className={classesMainContentItem.join(" ")}/>
-            <StepContent stepArr={stepArr} className={classesMainContentItem.join(" ")}/>
+          <form className={classesMainContentAr.join(" ")} onClick={() => this.forceUpdate()}>
             <div className={classeControl.join(" ")}>
-              <button className={classesBtn.join(" ")} onClick={this.props.reStart.bind(contentArr, stepArr)}>Запуск</button>
+              <Content contentArr={contentArr} className={classesMainContentItem.join(" ")} onCheckClick={this.props.checkClick}/>
+            </div>
+            <div className={classeControl.join(" ")}>
+              <StepContent stepArr={stepArr} className={classesMainContentItem.join(" ")}/>
+            </div>
+            
+            <div className={classeControl.join(" ")}>
+              <p>Игрок должен в уме «пройти» 10 ходов от текущей точки маркера по лабиринту и указать конечную точку маркера</p>
+              <button className={classesBtn.join(" ")} onClick={this.props.reStart.bind(contentArr, stepArr)} disabled={!contentArr.isClick}>Запуск</button>
             </div>
           </form>
           
@@ -51,6 +57,7 @@ function mapStateToProps(state) {
   function mapDispatchToProps(dispatch) {
     return {
       initGame: (contentArr, stepArr) => dispatch(initGame(contentArr, stepArr)),
+      checkClick: (arr, item) => dispatch(check(arr, item)),
       reStart: (contentArr, stepArr) => dispatch(reStart(contentArr, stepArr))
     }
   }

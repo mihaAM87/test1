@@ -18,21 +18,21 @@ class content extends Component {
       classesMainContentItem.push('center-block')
       classesMainContentItem.push('col-md-4')
 
-      contentArr = contentArr.map(contentItemArr => 
+      let contentArrDOM = contentArr.map(contentItemArr => 
         {
           return (
             <div className={classesMainContentItem.join(" ")} key={Math.random()}>
               {
                 contentItemArr.map(contentItem => {
                   return (
-                    <ContentItem key={'item_' + Math.random()} item={contentItem} arr={contentArr}></ContentItem>
+                    <ContentItem key={'item_' + Math.random()} item={contentItem} arr={contentArr} onCheckClick={this.props.onCheckClick}></ContentItem>
                   )})} 
             </div>)
         });  
       
         return (
           <div className={classesMainContentAr.join(" ")}>
-            {contentArr}
+            {contentArrDOM}
           </div>)
     }
 }

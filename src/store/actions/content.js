@@ -57,7 +57,7 @@ export function check(contentArr, item) {
         getWin(item);
 
         initContentArrSrc(contentArr);
-        console.log('item', item)
+  
         dispatch(fetchContentCheck(contentArr, item));
       }
     } catch (e) {
@@ -89,7 +89,7 @@ function getMainItemSrc(item, isClick) {
     if (item?.isTarget) {
 
       if (item?.type === WIN) {
-        item.src = "../../../img/yes.jgp";
+        item.src = "../../../img/yes.jpg";
       } else {
         item.src = "../../../img/fail.png"
       }
@@ -99,11 +99,7 @@ function getMainItemSrc(item, isClick) {
       item.src = "../../../img/no.png"
 
     } 
-    
-  } else {
-    if (item?.isTarget) {
-      item.src = "../../../img/fail.png"
-    }
+    console.log("fail", item.src)
   }
 
 }

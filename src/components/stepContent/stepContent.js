@@ -20,13 +20,13 @@ class stepContent extends Component {
       
       classesMainContentItem.push('col-2');
 
-      stepArr = stepArr.map(item => { 
+      let stepArrDOM = stepArr.map(item => { 
         return (
           <StepContentItem key={'item_' + Math.random()} prop_item={item} className={classesMainContentItem.join(" ")}></StepContentItem>
         )});
         return (
           <div className={classesMainContentAr.join(" ")}>
-            {stepArr}
+            {stepArrDOM}
           </div>
         )        
     }
