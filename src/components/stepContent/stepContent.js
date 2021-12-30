@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import classes from './stepContent.module.scss'
 import StepContentItem from './stepContentItem/stepContentItem'
-
+import {STEP_ROW_LENGTH} from '../../store/actions/actionTypes';
 
 
 
@@ -14,8 +14,9 @@ class stepContent extends Component {
 
       const classesMainContentAr = [];
       classesMainContentAr.push(classes.mainItem);
-      classesMainContentAr.push(classes.rowItem)
       const classesMainContentItem = [];
+      const classesMainContentItemRow = [];
+      classesMainContentItemRow.push(classes.rowItem)
       
       classesMainContentItem.push('col-2');
 
@@ -23,9 +24,16 @@ class stepContent extends Component {
         return (
           <StepContentItem key={'item_' + Math.random()} prop_item={item} className={classesMainContentItem.join(" ")}></StepContentItem>
         )});
+
+      let stepArrDOMNew = [];
+
+      while (stepArrDOM.length > 0) {
+        stepArrDOMNew.push((<div className={classesMainContentItemRow.join(" ")} key={'item_row_' + Math.random()}>{stepArrDOM.splice(0, STEP_ROW_LENGTH)}</div>));
+      }
+
         return (
           <div className={classesMainContentAr.join(" ")}>
-            {stepArrDOM}
+            {stepArrDOMNew}
           </div>
         )        
     }

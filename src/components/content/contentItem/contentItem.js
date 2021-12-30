@@ -4,8 +4,6 @@ import classes from './contentItem.module.scss'
 import { connect } from 'react-redux'
 import Radium from 'radium'
 
-
-
 class contentItem extends Component {
 
      render() {

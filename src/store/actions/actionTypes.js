@@ -17,6 +17,7 @@ export const NO_IMG = "../../../img/no.png"
 export const CONTENT_X_LENGTH = 3
 export const CONTENT_Y_LENGTH = 3
 export const STEP_LENGTH = 10
+export const STEP_ROW_LENGTH = 5
 export const INTERVAL_TIME = 3000;
 export const LOAD_ALL_CONTENTS = 'LOAD_ALL_CONTENTS_'
 export const SUCCESS = 'SUCCESS'
