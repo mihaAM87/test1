@@ -7,6 +7,10 @@ import Radium from 'radium'
 
 class stepContentItem extends Component {
 
+  static contextTypes = {
+    prop_item: PropTypes.object
+  }
+
 
     render() {
         let {prop_item} = this.props;

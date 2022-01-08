@@ -9,6 +9,10 @@ import {STEP_ROW_LENGTH} from '../../store/actions/actionTypes';
 
 class stepContent extends Component {
 
+  static contextTypes = {
+    stepArr: PropTypes.array
+  }
+
     render() {
       let {stepArr} = this.props;
 

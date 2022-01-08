@@ -6,6 +6,9 @@ import classes from './content.module.scss'
 
 class content extends Component {
 
+  static contextTypes = {
+    contentArr: PropTypes.array
+  }
  
     render() {
       let {contentArr} = this.props;

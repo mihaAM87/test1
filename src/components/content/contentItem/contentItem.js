@@ -6,6 +6,11 @@ import Radium from 'radium'
 
 class contentItem extends Component {
 
+    static contextTypes = {
+      item: PropTypes.object,
+      arr: PropTypes.array
+    }
+
      render() {
         let {item, arr} = this.props;
 
