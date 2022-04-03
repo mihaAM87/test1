@@ -9,10 +9,22 @@ class myMenu extends Component {
 
     static contextTypes = {
         type: PropTypes.string,
-        contentArr: PropTypes.array
+        sportTypesArr: PropTypes.array
+    }
+
+    state = {
+        sportTypesArr: []
+    }
+
+    componentWillMount() {
+        this.props.sportTypesInit("sportTypes", this.state.sportTypesArr);
     }
 
      render() {
+
+        let {sportTypesArr} = this.props;
+        sportTypesArr = sportTypesArr || [];
+
         const navClass = [];
 
         navClass.push("navbar");
@@ -21,8 +33,14 @@ class myMenu extends Component {
         // navClass.push(classes.whiteColor);
         navClass.push(classes.redBackground);
 
-
-
+        if (sportTypesArr && sportTypesArr.contents && sportTypesArr.contents.length > 0) {
+            sportTypesArr = sportTypesArr.contents.map(element => 
+                {
+                    return (
+                        <li><a className="dropdown-item" href="#">{element.name}</a></li>
+                    )
+                });
+        }
 
         return (
             <div className='row'>
@@ -35,14 +53,7 @@ class myMenu extends Component {
                                     id="navbarDropdown" role="button" data-bs-toggle="dropdown" 
                                     aria-expanded="false" >Виды спорта</a>
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a className="dropdown-item" href="#">Бокс</a></li>
-                                        <li><a className="dropdown-item" href="#">Кикбоксинг</a></li>
-                                        <li><a className="dropdown-item" href="#">Тайский бокс</a></li>
-                                        <li><a className="dropdown-item" href="#">ММА</a></li>
-                                        <li><a className="dropdown-item" href="#">Самбо</a></li>
-                                        <li><a className="dropdown-item" href="#">Боевое Самбо</a></li>
-                                        <li><a className="dropdown-item" href="#">Дюдо</a></li>
-                                        <li><a className="dropdown-item" href="#">Боевая борьба</a></li>
+                                        {sportTypesArr}
                                     </ul>
                                 </li>
                                 <li className="nav-item col-md-4">
@@ -73,14 +84,15 @@ class myMenu extends Component {
 
 function mapStateToProps(state) {
     return {
-
-    }
+        sportTypesArr: state.content.sportTypesArr,
+        loading: state.content.loading
+      }
   }
   
   function mapDispatchToProps(dispatch) {
     return {
-        sportTypesInit: (name, contentArr) => dispatch(fetchAllContentByType(name, contentArr))
+        sportTypesInit: (type, sportTypesArr) => dispatch(fetchAllContentByType(type, sportTypesArr))
     }
   }
 
-export default myMenu
+export default connect(mapStateToProps, mapDispatchToProps)(myMenu)

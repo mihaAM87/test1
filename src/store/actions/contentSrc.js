@@ -45,24 +45,11 @@ export function fetchAllContentByType(type, contentArr) {
 
     try {
 
-      if (!contentArr || contentArr.length == 0) {
-        contentArr = source;
-      }
+      contentArr = source;
       
-      switch (type) {
-        case "sportTypes": {
-          dispatch(getSportTypeContent(type, contentArr));
-          break;
-        }
-        case "sportTypes": {
-          dispatch(getCoachesContent(type, contentArr));
-          break;
-        }
-        case "sportTypes": {
-          dispatch(getPricesContent(type, contentArr));
-          break;
-        }
-      }
+      contentArr = contentArr.find(item => item.type === type);
+      dispatch(getSportTypeContent(contentArr));
+
     } catch (e) {
       dispatch(fetchContentError(e));
     }

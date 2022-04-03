@@ -10,7 +10,6 @@ const ReducerState = Record({
 const defaultState = new ReducerState()
 
 const initialState = {
-  contentArr: [],
   loading: false,
   error: null,
   results: {},
@@ -26,15 +25,15 @@ export default function contentReducer(state = initialState, action) {
       }
     case LOAD_ALL_CONTENTS + SPORT_TYPES:
       return {
-        ...state, loading: false, contentArr: action.contentArr
+        ...state, loading: false, sportTypesArr: action.contentArr
       }
     case LOAD_ALL_CONTENTS + COACHES:
       return {
-        ...state, loading: false, contentArr: action.contentArr
+        ...state, loading: false, coachesArr: action.contentArr
       }
     case LOAD_ALL_CONTENTS + PRICES:
       return {
-        ...state, loading: false, contentArr: action.contentArr
+        ...state, loading: false, pricesArr: action.contentArr
       }
     case LOAD_ALL_CONTENTS + ERROR:
       return {
