@@ -1,0 +1,39 @@
+[
+    {"type":"sportTypes","contents":[
+      {"type":"item","name":"Бокс"},
+      {"type":"item","name":"Кикбоксинг"},
+      {"type":"item","name":"Тайский бокс"},
+      {"type":"item","name":"ММА"},
+      {"type":"item","name":"Самбо"},
+      {"type":"item","name":"Боевое Самбо"},
+      {"type":"item","name":"Дюдо"},
+      {"type":"item","name":"Боевая борьба"}
+    ]},
+    {"type":"coaches","contents":[
+      {"type":"coach","name":"Юрий","contents":
+        {"type":"content","header":"Карате",
+          "content":"Преподаватель-организатор физического воспитания спорта «Донецкого национального университета».",
+          "img":"/img/Юрий.jpg"
+      }},
+      {"type":"coach","name":"Валерий","contents":
+        {"type":"content","header":"Ушу",
+          "content":"Преподаёт больше практики",
+          "img":"/img/Юрий.jpg"
+      }},
+      {"type":"coach","name":"Кантемир","contents":
+        {"type":"content","header":"Ушу",
+          "content":"Преподаёт ОФП",
+          "img":"/img/Валерий.jpg"
+      }}
+    ]},
+    {"type":"prices","contents":[
+      {"type":"item","name":"Разовая","content": {
+        "conditions": "",
+        "price": 500
+      }},
+      {"type":"item","name":"1 месяц","content": {
+        "conditions": "3 раза в неделю",
+        "price": 4000
+      }}
+    ]}
+  ]

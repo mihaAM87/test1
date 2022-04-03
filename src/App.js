@@ -1,20 +1,16 @@
 import React, { Component } from 'react'
 //import 'react-select/dist/react-select.css'
 import {Route, Switch, Redirect, withRouter} from 'react-router-dom'
-import GameContent from './components/gameContent'
+import MainContent from './components/mainContent'
 import './App.scss';
 
 class App extends Component {
   render() {
-    let routes = (
-      <Switch>
-        <Route component={GameContent} />
-      </Switch>)
     return (
-    <div className="App">
-      {routes}
-    </div>);
+      <div className="App">
+        <MainContent />
+      </div>);
   }
 }
 
-export default withRouter(App);
+export default App;
