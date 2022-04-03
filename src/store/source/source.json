@@ -27,27 +27,27 @@
       }}
     ]},
     {"type":"groupTypes","contents":[
-      {"type":"coach","name":"Женщины","contents":
+      {"type":"group","name":"Женщины","contents":
         {"type":"content","header":"Женщины",
           "content":"У нас тренируются женщины",
           "img":"women.jpg"
       }},
-      {"type":"coach","name":"Новички","contents":
+      {"type":"group","name":"Новички","contents":
         {"type":"content","header":"Новички",
           "content":"У нас тренируются новички",
           "img":"beginners.jpg"
       }},
-      {"type":"coach","name":"Дети","contents":
+      {"type":"group","name":"Дети","contents":
         {"type":"content","header":"Дети",
           "content":"У нас тренируются дети",
           "img":"children.jpg"
       }},
-      {"type":"coach","name":"Опытные","contents":
+      {"type":"group","name":"Опытные","contents":
         {"type":"content","header":"Опытные",
           "content":"У нас тренируются опытные",
           "img":"experienced.jpg"
       }},
-      {"type":"coach","name":"Персональные","contents":
+      {"type":"group","name":"Персональные","contents":
         {"type":"content","header":"Персональные",
           "content":"У нас тренируются персонально",
           "img":"personal.jpg"
