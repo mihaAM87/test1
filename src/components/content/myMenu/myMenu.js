@@ -30,14 +30,15 @@ class myMenu extends Component {
         navClass.push("navbar");
         navClass.push("navbar-expand-lg");
         navClass.push("navbar-light");
-        // navClass.push(classes.whiteColor);
+        navClass.push('col-md-12');
         navClass.push(classes.redBackground);
 
         if (sportTypesArr && sportTypesArr.contents && sportTypesArr.contents.length > 0) {
             sportTypesArr = sportTypesArr.contents.map(element => 
                 {
+                    let itemKey = Math.random();
                     return (
-                        <li><a className="dropdown-item" href="#">{element.name}</a></li>
+                        <li key={itemKey}><a className="dropdown-item" href="#">{element.name}</a></li>
                     )
                 });
         }
@@ -45,10 +46,10 @@ class myMenu extends Component {
         return (
             <div className='row'>
                 <nav className={navClass.join(' ')}>
-                    <div className="container-fluid">
-                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li className="nav-item dropdown col-md-4">
+                    <div className="container-fluid col-md-12">
+                        <div className="collapse navbar-collapse col-md-12" id="navbarSupportedContent">
+                            <ul className="navbar-nav me-auto mb-2 mb-lg-0 col-md-12">
+                                <li className="nav-item dropdown col-md-3">
                                     <a className="nav-link dropdown-toggle active text-white" href="#" 
                                     id="navbarDropdown" role="button" data-bs-toggle="dropdown" 
                                     aria-expanded="false" >Виды спорта</a>
@@ -56,13 +57,13 @@ class myMenu extends Component {
                                         {sportTypesArr}
                                     </ul>
                                 </li>
-                                <li className="nav-item col-md-4">
+                                <li className="nav-item col-md-3">
                                     <a className="nav-link active text-white" aria-current="page" href="#">Стоимость</a>
                                 </li>
-                                <li className="nav-item col-md-4">
+                                <li className="nav-item col-md-3">
                                     <a className="nav-link active text-white" aria-current="page" href="#">Тренеры</a>
                                 </li>
-                                <li className="nav-item col-md-4">
+                                <li className="nav-item col-md-3">
                                     <a className="nav-link active text-white" aria-current="page" href="#">Контакты</a>
                                 </li>
                             </ul>

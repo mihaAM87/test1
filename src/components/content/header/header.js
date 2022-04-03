@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import classes from './header.module.scss'
 import { connect } from 'react-redux'
-import {LOGOTYPE, METRO_IMG} from '../../../store/actions/content'
+import {LOGOTYPE, METRO_IMG, IMG_DIRECTORY} from '../../../store/actions/content'
 import Radium from 'radium'
 
 class header extends Component {
@@ -16,10 +16,10 @@ class header extends Component {
             <div className='container' >
               <div className='row align-items-center'>
                   <div className="col-md-4">
-                    <img src={LOGOTYPE} className={classes.logotype}></img>
+                    <img src={IMG_DIRECTORY + LOGOTYPE} className={classes.logotype}></img>
                   </div>
                   <div className="col-md-3">
-                    <img src={METRO_IMG} className={classes.metroImg}></img>
+                    <img src={IMG_DIRECTORY + METRO_IMG} className={classes.metroImg}></img>
                     <span>г. Москва, Краснодонская улица, 39, м. "Волжская", м. "Люблино"</span>
                   </div>
                   <div className="col-md-2">
