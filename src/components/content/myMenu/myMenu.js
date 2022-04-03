@@ -1,4 +1,8 @@
 import React, {Component} from 'react'
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown  from 'react-bootstrap/NavDropdown';
+import Container from 'react-bootstrap/Container'
 import PropTypes from 'prop-types'
 import classes from './myMenu.module.scss'
 import { connect } from 'react-redux'
@@ -27,55 +31,34 @@ class myMenu extends Component {
 
         const navClass = [];
 
-        navClass.push("navbar");
-        navClass.push("navbar-expand-lg");
-        navClass.push("navbar-light");
-        navClass.push('col-md-12');
         navClass.push(classes.redBackground);
 
         if (sportTypesArr && sportTypesArr.contents && sportTypesArr.contents.length > 0) {
             sportTypesArr = sportTypesArr.contents.map(element => 
                 {
-                    let itemKey = Math.random();
                     return (
-                        <li key={itemKey}><a className="dropdown-item" href="#">{element.name}</a></li>
+                        <NavDropdown.Item href="#">{element.name}</NavDropdown.Item>
                     )
                 });
         }
 
         return (
-            <div className='row'>
-                <nav className={navClass.join(' ')}>
-                    <div className="container-fluid col-md-12">
-                        <div className="collapse navbar-collapse col-md-12" id="navbarSupportedContent">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0 col-md-12">
-                                <li className="nav-item dropdown col-md-3">
-                                    <a className="nav-link dropdown-toggle active text-white" href="#" 
-                                    id="navbarDropdown" role="button" data-bs-toggle="dropdown" 
-                                    aria-expanded="false" >Виды спорта</a>
-                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        {sportTypesArr}
-                                    </ul>
-                                </li>
-                                <li className="nav-item col-md-3">
-                                    <a className="nav-link active text-white" aria-current="page" href="#">Стоимость</a>
-                                </li>
-                                <li className="nav-item col-md-3">
-                                    <a className="nav-link active text-white" aria-current="page" href="#">Тренеры</a>
-                                </li>
-                                <li className="nav-item col-md-3">
-                                    <a className="nav-link active text-white" aria-current="page" href="#">Контакты</a>
-                                </li>
-                            </ul>
-                            
-                        </div>
-                        
-                    </div>
-                
-                </nav>
-            </div>
-            
-            
+
+            <Navbar bg="light" expand="lg" variant="dark">
+                <Container className={navClass.join(' ')}>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <NavDropdown title="Виды спорта" id="basic-nav-dropdown">
+                            {sportTypesArr}
+                        </NavDropdown>
+                        <Nav.Link href="#">Стоимость</Nav.Link>
+                        <Nav.Link href="#">Тренеры</Nav.Link>
+                        <Nav.Link href="#">Контакты</Nav.Link>
+                    </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
           )
     }
 

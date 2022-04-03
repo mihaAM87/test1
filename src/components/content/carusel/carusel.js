@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Carousel from 'react-bootstrap/Carousel'
 import PropTypes from 'prop-types'
 import classes from './carusel.module.scss'
 import { connect } from 'react-redux'
@@ -25,27 +26,7 @@ class carusel extends Component {
 
         let {groupTypesArr} = this.props;
         groupTypesArr = groupTypesArr || [];
-        let groupTypesButtonsArr = [];
         if (groupTypesArr && groupTypesArr.contents && groupTypesArr.contents.length > 0) {
-
-            groupTypesArr.contents.forEach((item, index, array) => {
-
-
-                let itemClasses = [];
-
-                if (item.name.toLowerCase() === 'женщины') {
-                    itemClasses.push('active');
-                }
-
-                let itemKey = Math.random();
-                groupTypesButtonsArr.push(
-                    
-                        <button key={itemKey} type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={index} 
-                        className={itemClasses.join(' ')} aria-current="true" aria-label={'Slide ' + (index + 1)}></button>
-                    
-                    );
-            });
-
 
             groupTypesArr = groupTypesArr.contents.map(element => 
                 {
@@ -64,10 +45,18 @@ class carusel extends Component {
                     
                     return (
 
-                        <div key={itemKey} className={itemClasses.join(' ')} >
-                            <img src={IMG_DIRECTORY + element.contents.img} className={imgClasses.join(' ')} 
-                            alt={element.contents.header} />
-                        </div>
+                        <Carousel.Item>
+                            <img
+                                className={imgClasses.join(' ')}
+                                src={IMG_DIRECTORY + element.contents.img}
+                                alt={element.contents.header}
+                            />
+                            <Carousel.Caption>
+                                <h3>{element.contents.header}</h3>
+                                <p>{element.contents.content}.</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+
                     )
                 });
 
@@ -76,22 +65,10 @@ class carusel extends Component {
         }
 
          return (
-            <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
-                <div className="carousel-indicators">
-                    {groupTypesButtonsArr}
-                </div>
-                <div className="carousel-inner">
-                    {groupTypesArr}
-                </div>
-                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Предыдущий</span>
-                </button>
-                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Следующий</span>
-                </button>
-            </div>
+
+            <Carousel>
+                {groupTypesArr}
+            </Carousel>
          )
      }
 }

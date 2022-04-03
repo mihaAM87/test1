@@ -20,17 +20,17 @@ class body extends Component {
         
     }
 
-     render() {
+    //  render() {
 
         
                     
                     
                
 
-         return (
+    //      return (
             
-         )
-     }
+    //      )
+    //  }
 }
 function mapStateToProps(state) {
     return {
