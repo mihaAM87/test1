@@ -38,31 +38,34 @@ class carusel extends Component {
                 }
 
                 let itemKey = Math.random();
-                groupTypesButtonsArr.push(() => { return (
+                groupTypesButtonsArr.push(
                     
                         <button key={itemKey} type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={index} 
                         className={itemClasses.join(' ')} aria-current="true" aria-label={'Slide ' + (index + 1)}></button>
                     
-                    )
-                });
+                    );
             });
 
 
             groupTypesArr = groupTypesArr.contents.map(element => 
                 {
                     let itemClasses = [];
+                    let imgClasses = [];
                     itemClasses.push('carousel-item');
 
                     if (element.name.toLowerCase() === 'женщины') {
                         itemClasses.push('active');
                     }
 
+                    imgClasses.push(classes.mainImg);
+                    imgClasses.push('d-block w-100');
+
                     let itemKey = Math.random();
                     
                     return (
 
                         <div key={itemKey} className={itemClasses.join(' ')} >
-                            <img src={IMG_DIRECTORY + element.contents.img} className="d-block w-100" 
+                            <img src={IMG_DIRECTORY + element.contents.img} className={imgClasses.join(' ')} 
                             alt={element.contents.header} />
                         </div>
                     )
