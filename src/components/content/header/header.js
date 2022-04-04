@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import classes from './header.module.scss'
+import {NavbarBrand} from 'react-bootstrap';
+import { Outlet, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux'
 import {LOGOTYPE, METRO_IMG, IMG_DIRECTORY} from '../../../store/actions/content'
 import Radium from 'radium'
@@ -16,7 +18,10 @@ class header extends Component {
             <div className='container' >
               <div className='row align-items-center'>
                   <div className="col-md-4">
-                    <img src={IMG_DIRECTORY + LOGOTYPE} className={classes.logotype}></img>
+                    <NavbarBrand as={NavLink} to='/'>
+                      <img src={IMG_DIRECTORY + LOGOTYPE} className={classes.logotype}></img>
+                    </NavbarBrand>
+                    
                   </div>
                   <div className="col-md-3">
                     <img src={IMG_DIRECTORY + METRO_IMG} className={classes.metroImg}></img>
