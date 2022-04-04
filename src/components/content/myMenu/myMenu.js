@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown  from 'react-bootstrap/NavDropdown';
-import Container from 'react-bootstrap/Container'
+import {Navbar, Nav, NavDropdown, Container} from 'react-bootstrap';
+import { Outlet, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import classes from './myMenu.module.scss'
 import { connect } from 'react-redux'
@@ -37,7 +35,8 @@ class myMenu extends Component {
             sportTypesArr = sportTypesArr.contents.map(element => 
                 {
                     return (
-                        <NavDropdown.Item href="#">{element.name}</NavDropdown.Item>
+                        <NavDropdown.Item as={NavLink} to="/sportTypes">{element.name}</NavDropdown.Item>
+                        
                     )
                 });
         }
@@ -48,14 +47,14 @@ class myMenu extends Component {
                 <Container className={navClass.join(' ')}>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <NavDropdown title="Виды спорта" id="basic-nav-dropdown">
-                            {sportTypesArr}
-                        </NavDropdown>
-                        <Nav.Link href="#">Стоимость</Nav.Link>
-                        <Nav.Link href="#">Тренеры</Nav.Link>
-                        <Nav.Link href="#">Контакты</Nav.Link>
-                    </Nav>
+                        <Nav className="me-auto">
+                            <NavDropdown title="Виды спорта" id="basic-nav-dropdown">
+                                {sportTypesArr}
+                            </NavDropdown>
+                            <Nav.Link as={NavLink} to="/prices">Стоимость</Nav.Link>
+                            <Nav.Link as={NavLink} to="/coaches">Тренеры</Nav.Link>
+                            <Nav.Link as={NavLink} to="/contacts">Контакты</Nav.Link>
+                        </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

@@ -6,6 +6,7 @@ import Header from './content/header/header'
 import MyMenu from './content/myMenu/myMenu'
 import MainImage from './content/mainImage/mainImage'
 import Carusel from './content/carusel/carusel'
+import Body from './content/body/body'
 import Footer from './content/footer/footer'
 import {Route, Switch, Redirect, withRouter} from 'react-router-dom'
 
@@ -23,6 +24,7 @@ class mainContent extends Component {
             <MyMenu />
             <MainImage />
             <Carusel />
+            <Body />
             <Footer />
           </div>
           
